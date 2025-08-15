@@ -9,45 +9,44 @@
   place-items: center;
   padding: 24px;
 
-  /* Background image with gradient overlay */
-  background: 
-    linear-gradient(180deg, rgba(10, 14, 23, 0.62), rgba(10, 14, 23, 0.45)),
-    url('https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed,
-    #0b1020;
+  /* Modern gradient with backdrop effect */
+  background:
+    linear-gradient(135deg, rgba(10, 14, 23, 0.85), rgba(25, 118, 210, 0.75)),
+    url('https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
 }
 
 .auth-card {
   width: 100%;
   max-width: 440px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 18px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
-  padding: 32px 28px;
-  animation: rise 280ms ease-out;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  padding: 36px 30px;
+  animation: fadeInUp 400ms ease-out;
 
-  @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
-    background: rgba(255, 255, 255, 0.7);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);
-    backdrop-filter: saturate(180%) blur(10px);
+  @supports (backdrop-filter: blur(12px)) {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px) saturate(180%);
   }
 }
 
 .auth-title {
-  margin: 0 0 4px;
-  font-size: 24px;
+  margin: 0 0 6px;
+  font-size: 26px;
   font-weight: 700;
   color: #0d47a1;
+  text-align: center;
 }
 
 .auth-subtitle {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   color: #607d8b;
+  text-align: center;
 }
 
 form {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .field {
@@ -61,36 +60,37 @@ label {
 }
 
 input {
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
   border: 1px solid #cfd8dc;
   background: #fafafa;
-  outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+  font-size: 15px;
+  transition: all 200ms ease;
 }
 
 input:focus {
   border-color: #1976d2;
-  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
   background: #fff;
 }
 
 .field.invalid input {
   border-color: #e53935;
-  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12);
+  box-shadow: 0 0 0 4px rgba(229, 57, 53, 0.12);
 }
 
 .hint {
   color: #e53935;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .server-error {
   background: #ffebee;
   color: #c62828;
   border: 1px solid #ffcdd2;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 .btn {
@@ -98,33 +98,35 @@ input:focus {
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: 10px;
-  padding: 10px 14px;
+  border-radius: 12px;
+  padding: 12px 16px;
   font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
-  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+  transition: all 150ms ease;
 }
 
 .btn:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
 .btn-primary {
   color: #fff;
   background: linear-gradient(135deg, #1976d2, #0d47a1);
-  box-shadow: 0 6px 14px rgba(25, 118, 210, 0.25);
+  box-shadow: 0 6px 16px rgba(25, 118, 210, 0.3);
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(25, 118, 210, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(25, 118, 210, 0.35);
 }
 
 .switch {
-  margin: 16px 0 0;
+  margin: 20px 0 0;
   text-align: center;
   color: #607d8b;
+  font-size: 14px;
 }
 
 .switch a {
@@ -132,13 +134,12 @@ input:focus {
   font-weight: 600;
 }
 
-/* Responsiveness */
+/* Responsive Tweaks */
 @media (max-width: 520px) {
   .auth-card {
-    padding: 24px 18px;
-    border-radius: 14px;
+    padding: 28px 20px;
+    border-radius: 16px;
   }
-
   .auth-title {
     font-size: 22px;
   }
@@ -146,18 +147,15 @@ input:focus {
 
 @media (max-width: 380px) {
   .auth-card {
-    padding: 18px 14px;
+    padding: 22px 16px;
+  }
+  input {
+    font-size: 14px;
   }
 }
 
-/* Reduce motion preference */
-@media (prefers-reduced-motion: reduce) {
-  .auth-card {
-    animation: none;
-  }
-}
-@keyframes rise {
-  from { transform: translateY(6px); opacity: 0; }
+/* Animations */
+@keyframes fadeInUp {
+  from { transform: translateY(15px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-

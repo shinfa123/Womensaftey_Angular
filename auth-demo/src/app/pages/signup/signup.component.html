@@ -4,19 +4,49 @@
     <p class="auth-subtitle">Join us to get started</p>
 
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-      <div class="field" [class.invalid]="form.controls['username'].touched && form.controls['username'].invalid">
-        <label for="username">Username</label>
-        <input id="username" type="text" formControlName="username" placeholder="Choose a username" />
-        <small class="hint" *ngIf="form.controls['username'].touched && form.controls['username'].hasError('required')">
-          Username is required
-        </small>
-      </div>
+      <div class="grid">
+        <div class="field" [class.invalid]="form.controls['name'].touched && form.controls['name'].invalid">
+          <label for="name">Name</label>
+          <input id="name" type="text" formControlName="name" placeholder="Your full name" />
+          <small class="hint" *ngIf="form.controls['name'].touched && form.controls['name'].hasError('required')">Name is required</small>
+        </div>
 
-      <div class="field" [class.invalid]="form.controls['password'].touched && form.controls['password'].invalid">
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" placeholder="Create a password" />
-        <small class="hint" *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')">Password is required</small>
-        <small class="hint" *ngIf="form.controls['password'].touched && form.controls['password'].hasError('minlength')">Minimum 6 characters</small>
+        <div class="field" [class.invalid]="form.controls['age'].touched && form.controls['age'].invalid">
+          <label for="age">Age</label>
+          <input id="age" type="number" formControlName="age" placeholder="Age" min="1" max="120" />
+          <small class="hint" *ngIf="form.controls['age'].touched && form.controls['age'].invalid">Enter a valid age</small>
+        </div>
+
+        <div class="field" [class.invalid]="form.controls['place'].touched && form.controls['place'].invalid">
+          <label for="place">Place</label>
+          <input id="place" type="text" formControlName="place" placeholder="City / Area" />
+          <small class="hint" *ngIf="form.controls['place'].touched && form.controls['place'].hasError('required')">Place is required</small>
+        </div>
+
+        <div class="field" [class.invalid]="form.controls['phoneno'].touched && form.controls['phoneno'].invalid">
+          <label for="phoneno">Phone No</label>
+          <input id="phoneno" type="tel" formControlName="phoneno" placeholder="10 digit phone no" />
+          <small class="hint" *ngIf="form.controls['phoneno'].touched && form.controls['phoneno'].invalid">Enter 10 digit phone no</small>
+        </div>
+
+        <div class="field" [class.invalid]="form.controls['email'].touched && form.controls['email'].invalid">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+          <small class="hint" *ngIf="form.controls['email'].touched && form.controls['email'].invalid">Valid email required</small>
+        </div>
+
+        <div class="field" [class.invalid]="form.controls['userName'].touched && form.controls['userName'].invalid">
+          <label for="userName">Username</label>
+          <input id="userName" type="text" formControlName="userName" placeholder="Choose a username" />
+          <small class="hint" *ngIf="form.controls['userName'].touched && form.controls['userName'].hasError('required')">Username is required</small>
+        </div>
+
+        <div class="field" [class.invalid]="form.controls['password'].touched && form.controls['password'].invalid">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password" placeholder="Create a password" />
+          <small class="hint" *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')">Password is required</small>
+          <small class="hint" *ngIf="form.controls['password'].touched && form.controls['password'].hasError('minlength')">Minimum 6 characters</small>
+        </div>
       </div>
 
       <div class="server-error" *ngIf="errorMessage">{{ errorMessage }}</div>

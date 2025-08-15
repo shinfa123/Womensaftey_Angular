@@ -15,7 +15,12 @@ export class SignupComponent {
   errorMessage = '';
   isSubmitting = false;
   form = this.fb.group({
-    username: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    age: [null as number | null, [Validators.required, Validators.min(1), Validators.max(120)]],
+    place: ['', [Validators.required]],
+    phoneno: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+    email: ['', [Validators.required, Validators.email]],
+    userName: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
@@ -25,13 +30,21 @@ export class SignupComponent {
     this.errorMessage = '';
     if (this.form.invalid) return;
     this.isSubmitting = true;
-    const { username, password } = this.form.value as { username: string; password: string };
-    this.auth.signup(username, password).subscribe({
+    const payload = this.form.value as {
+      name: string;
+      age: number;
+      place: string;
+      phoneno: string;
+      email: string;
+      userName: string;
+      password: string;
+    };
+    this.auth.signup(payload).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/login');
       },
-      error: (err) => {
+      error: () => {
         this.isSubmitting = false;
         this.errorMessage = 'Signup failed';
       }

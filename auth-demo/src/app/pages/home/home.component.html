@@ -1,4 +1,41 @@
 <div class="home-page">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">⚡</span>
+      <span class="name">Smart Portal</span>
+    </div>
+
+    <nav class="side-nav">
+      <a class="side-link" href="#">
+        📝 <span>Complaints</span>
+      </a>
+      <a class="side-link alert" href="#">
+        🚨 <span>Emergency Alert</span>
+      </a>
+      <a class="side-link" routerLink="/user-management">
+        👥 <span>User Management</span>
+      </a>
+      <a class="side-link" routerLink="/about">
+        ℹ️ <span>About</span>
+      </a>
+    </nav>
+
+    <div class="logout">
+      <a routerLink="/login" class="side-link">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="welcome-section">
+      <h1>Welcome, {{ username || 'User' }}!</h1>
+      <p>Select an option from the menu to get started</p>
+    </div>
+  </main>
+</div>
+
+
+<!--
+<div class="home-page">
   <header class="topbar">
     <div class="brand">
       <span class="logo">⚡</span>
@@ -11,7 +48,7 @@
 
   <main class="content">
     <section class="hero">
-      <h1>Welcome</h1>
+      <h1>Welcome, {{ username || 'User' }}!</h1>
       <p>Select an option to get started</p>
     </section>
 
@@ -26,7 +63,12 @@
         <h3>Emergency Alert</h3>
         <p>Send quick emergency notifications</p>
       </a>
-      <a class="menu-card" href="#">
+      <a class="menu-card" routerLink="/user-management">
+        <div class="icon">👥</div>
+        <h3>User Management</h3>
+        <p>Manage user accounts and permissions</p>
+      </a>
+         <a class="menu-card" routerLink="/about">
         <div class="icon">ℹ️</div>
         <h3>About</h3>
         <p>Learn more about this app</p>
@@ -34,3 +76,5 @@
     </section>
   </main>
 </div>
+
+-->

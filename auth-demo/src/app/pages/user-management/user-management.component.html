@@ -1,0 +1,86 @@
+<div class="user-management-page">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">👥</span>
+      <span class="name">User Management</span>
+    </div>
+    <nav class="actions">
+      <a routerLink="/home" class="link">Back to Home</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <section class="hero">
+      <h1>User Management</h1>
+      <p>Manage all registered users in the system</p>
+    </section>
+
+    <section class="table-section">
+      <div class="table-header">
+        <h2>User List</h2>
+        <button class="btn btn-primary" (click)="loadUsers()" [disabled]="loading">
+          {{ loading ? 'Loading...' : 'Refresh' }}
+        </button>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        {{ error }}
+      </div>
+
+      <div class="loading-spinner" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Loading users...</p>
+      </div>
+
+      <div class="table-container" *ngIf="!loading && !error">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Place</th>
+              <th>Semester</th>
+              <th>Department</th>
+              <th>Batch</th>
+              <th>Phone</th>
+              <th>Email</th>
+                             <th>Username</th>
+               <th>IsActive</th>
+               <th>Actions</th>
+             </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users" class="user-row">
+              <td>{{ user.id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.age }}</td>
+              <td>{{ user.place }}</td>
+              <td>{{ user.semester }}</td>
+              <td>{{ user.department?.name || 'N/A' }}</td>
+              <td>{{ user.batch }}</td>
+              <td>{{ user.phoneno }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.userName }}</td>
+                             <td>
+                 <span class="status-indicator" [class.active]="user.isAdmin" [class.inactive]="!user.isAdmin">
+                   <span class="tick" *ngIf="user.isAdmin">✓</span>
+                   <span class="cross" *ngIf="!user.isAdmin">✗</span>
+                 </span>
+               </td>
+               <td>
+                 <button class="btn btn-edit" (click)="editUser(user)">
+                   ✏️ Edit
+                 </button>
+               </td>
+             </tr>
+          </tbody>
+        </table>
+
+        <div class="no-data" *ngIf="users.length === 0">
+          <p>No users found.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

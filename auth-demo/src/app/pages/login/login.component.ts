@@ -1,43 +1,48 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  errorMessage = '';
+  form: FormGroup;
   isSubmitting = false;
-  form = this.fb.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required]]
-  });
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
-
-  submit(): void {
-    this.errorMessage = '';
-    if (this.form.invalid) return;
-    this.isSubmitting = true;
-    const { username, password } = this.form.value as { username: string; password: string };
-    // Clear any stale token before logging in
-    this.auth.logout();
-    this.auth.login(username, password).subscribe({
-      next: () => {
-        this.isSubmitting = false;
-        this.router.navigateByUrl('/home');
-      },
-      error: () => {
-        this.isSubmitting = false;
-        this.auth.logout();
-        this.errorMessage = 'Invalid password';
-      }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.form = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
+  }
+
+  submit() {
+    if (this.form.valid) {
+      this.isSubmitting = true;
+      this.errorMessage = '';
+
+      const { username, password } = this.form.value;
+      
+      this.authService.login(username, password).subscribe({
+        next: () => {
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          this.errorMessage = error.message || 'Login failed. Please try again.';
+          this.isSubmitting = false;
+        }
+      });
+    }
   }
 }
