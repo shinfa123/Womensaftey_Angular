@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit {
        password: ['', [Validators.required, Validators.minLength(6)]],
               semester: ['', [Validators.required]],
         batch: ['', [Validators.required, Validators.min(2000), Validators.max(2030)]],
-        isAdmin: [false]
+        isActive: [false]
      });
   }
 
@@ -95,7 +95,7 @@ export class EditUserComponent implements OnInit {
          password: this.user.password, // Note: This might be hashed
          semester: semesterValue,
          batch: this.user.batch,
-         isAdmin: this.user.isAdmin
+         isActive: this.user.isActive
        });
       
       // Mark all controls as touched to trigger validation
@@ -152,7 +152,7 @@ export class EditUserComponent implements OnInit {
          password: formData.password,
          semester: formData.semester,
          batch: formData.batch,
-         isAdmin: formData.isAdmin,
+         isActive: formData.isActive,
          department: {
            id: parseInt(formData.department),
            name: this.getDepartmentName(parseInt(formData.department))

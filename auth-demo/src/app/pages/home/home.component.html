@@ -12,7 +12,7 @@
       <a class="side-link alert" href="#">
         🚨 <span>Emergency Alert</span>
       </a>
-      <a class="side-link" routerLink="/user-management">
+      <a *ngIf="isAdmin" class="side-link" routerLink="/user-management">
         👥 <span>User Management</span>
       </a>
       <a class="side-link" routerLink="/about">
@@ -63,7 +63,7 @@
         <h3>Emergency Alert</h3>
         <p>Send quick emergency notifications</p>
       </a>
-      <a class="menu-card" routerLink="/user-management">
+      <a *ngIf="isAdmin" class="menu-card" routerLink="/user-management">
         <div class="icon">👥</div>
         <h3>User Management</h3>
         <p>Manage user accounts and permissions</p>
