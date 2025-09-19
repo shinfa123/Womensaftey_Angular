@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
@@ -10,10 +10,18 @@ import { AuthService } from '../../core/auth/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   username: string | null = null;
+  isAdmin: boolean = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.updateUserInfo();
+  }
+
+  updateUserInfo() {
     this.username = this.authService.getLoginUsername();
+    this.isAdmin = this.authService.isAdmin();
   }
 }
