@@ -1,0 +1,89 @@
+<div class="add-complaint-page">
+  <div class="page-header">
+    <div class="header-content">
+      <button class="back-btn" routerLink="/user-complaints">
+        ← Back to Complaints
+      </button>
+      <div class="title-section">
+        <h1>📝 Add New Complaint</h1>
+        <p>Submit a new complaint for review</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()" class="complaint-form">
+      <!-- Error Message -->
+      <div *ngIf="error" class="error-message">
+        <div class="error-icon">⚠️</div>
+        <p>{{ error }}</p>
+      </div>
+
+      <!-- Success Message -->
+      <div *ngIf="success" class="success-message">
+        <div class="success-icon">✅</div>
+        <p>Complaint submitted successfully! Redirecting...</p>
+      </div>
+
+      <!-- Location Field -->
+      <div class="form-group">
+        <label for="location" class="form-label">Location *</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          [(ngModel)]="complaint.location"
+          class="form-input"
+          placeholder="Enter the location where the incident occurred"
+          required>
+      </div>
+
+      <!-- Complaint Type Field -->
+      <div class="form-group">
+        <label for="complaintType" class="form-label">Complaint Type *</label>
+        <select
+          id="complaintType"
+          name="complaintType"
+          [(ngModel)]="complaint.complaintType"
+          class="form-select"
+          required>
+          <option value="">Select complaint type</option>
+          <option *ngFor="let type of complaintTypes" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Comment Field -->
+      <div class="form-group">
+        <label for="comment" class="form-label">Description *</label>
+        <textarea
+          id="comment"
+          name="comment"
+          [(ngModel)]="complaint.comment"
+          class="form-textarea"
+          placeholder="Please provide a detailed description of the complaint"
+          rows="5"
+          required>
+        </textarea>
+      </div>
+
+      <!-- Status Field (Hidden - will be set to 'Submitted') -->
+      <input type="hidden" [(ngModel)]="complaint.status" name="status">
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          class="btn-submit" 
+          [disabled]="loading">
+          <span *ngIf="!loading">📤 Submit Complaint</span>
+          <span *ngIf="loading">⏳ Submitting...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

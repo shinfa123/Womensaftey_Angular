@@ -1,0 +1,76 @@
+<div 
+  *ngIf="isVisible" 
+  class="popup-overlay" 
+  (click)="onBackdropClick($event)"
+  (keydown)="onKeyDown($event)"
+  tabindex="0"
+>
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <div class="popup-header">
+      <h2>👤 User Details</h2>
+      <button class="close-btn" (click)="onClose()" aria-label="Close">
+        ✕
+      </button>
+    </div>
+    
+    <div class="popup-body" *ngIf="user">
+      <div class="user-avatar">
+        <div class="avatar-circle">
+          {{ user.name.charAt(0).toUpperCase() }}
+        </div>
+      </div>
+      
+      <div class="user-info">
+        <div class="info-section">
+          <h3>Personal Information</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Name:</span>
+              <span class="value">{{ user.name }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Age:</span>
+              <span class="value">{{ user.age }} years</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Place:</span>
+              <span class="value">{{ user.place }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ user.email }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Phone:</span>
+              <span class="value">{{ user.phoneno }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="info-section">
+          <h3>Academic Information</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Department:</span>
+              <span class="value">{{ user.department.name }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Batch:</span>
+              <span class="value">{{ user.batch }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Semester:</span>
+              <span class="value">{{ user.semester }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="popup-footer">
+      <button class="btn-secondary" (click)="onClose()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

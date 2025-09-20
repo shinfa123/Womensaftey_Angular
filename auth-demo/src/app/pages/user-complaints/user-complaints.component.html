@@ -1,0 +1,86 @@
+<div class="user-complaints-page">
+  <div class="page-header">
+    <div class="header-content">
+      <button class="back-btn" routerLink="/home">
+        ← Back to Home
+      </button>
+      <div class="title-section">
+        <h1>📝 My Complaints</h1>
+        <p>View and track your submitted complaints</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="complaints-content">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading your complaints...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <div class="error-icon">⚠️</div>
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="loadComplaints()">Retry</button>
+    </div>
+
+    <!-- Complaints Table -->
+    <div *ngIf="!loading && !error" class="complaints-table-container">
+      <div class="table-header">
+        <h3>Your Complaints ({{ complaints.length }})</h3>
+        <div class="header-actions">
+          <button class="add-complaint-btn" routerLink="/add-complaint">
+            ➕ Add Complaint
+          </button>
+          <button class="refresh-btn" (click)="loadComplaints()" [disabled]="loading">
+            🔄 Refresh
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="complaints.length === 0" class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p>No complaints found</p>
+        <p class="empty-subtitle">Submit your first complaint to get started</p>
+      </div>
+
+      <div *ngIf="complaints.length > 0" class="table-wrapper">
+        <table class="complaints-table">
+          <thead>
+            <tr>
+              <th>Submitted</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let complaint of complaints; trackBy: trackByIndex">
+              <td class="timestamp-cell">
+                {{ formatTimestamp(complaint.timeStamp) }}
+              </td>
+              <td class="status-cell">
+                <span class="status-badge" [ngClass]="getStatusClass(complaint.status)">
+                  {{ complaint.status }}
+                </span>
+              </td>
+              <td class="location-cell">
+                {{ complaint.location }}
+              </td>
+              <td class="type-cell">
+                {{ complaint.complaintType }}
+              </td>
+              <td class="comment-cell">
+                <div class="comment-content">
+                  {{ complaint.comment || 'No comment' }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="complaints-page">
+  <div class="page-header">
+    <div class="header-content">
+      <button class="back-btn" routerLink="/home">
+        ← Back to Home
+      </button>
+      <div class="title-section">
+        <h1>📝 Admin - Complaints Management</h1>
+        <p>View and manage all complaints</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="complaints-content">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading complaints...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <div class="error-icon">⚠️</div>
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="loadComplaints()">Retry</button>
+    </div>
+
+    <!-- Complaints Table -->
+    <div *ngIf="!loading && !error" class="complaints-table-container">
+      <div class="table-header">
+        <h3>All Complaints ({{ complaints.length }})</h3>
+        <div class="header-actions">
+          <button class="refresh-btn" (click)="loadComplaints()" [disabled]="loading">
+            🔄 Refresh
+          </button>
+          <button 
+            class="save-btn" 
+            (click)="saveAllComplaints()" 
+            [disabled]="saving || !hasUnsavedChanges()"
+            [class.saving]="saving">
+            <span *ngIf="!saving">💾 Save All</span>
+            <span *ngIf="saving">⏳ Saving...</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Success/Error Messages -->
+      <div *ngIf="saveSuccess" class="success-message">
+        <div class="success-icon">✅</div>
+        <p>Complaints saved successfully!</p>
+      </div>
+      
+      <div *ngIf="error && !loading" class="error-message">
+        <div class="error-icon">⚠️</div>
+        <p>{{ error }}</p>
+      </div>
+
+      <div *ngIf="complaints.length === 0" class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p>No complaints found</p>
+      </div>
+
+      <div *ngIf="complaints.length > 0" class="table-wrapper">
+        <table class="complaints-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>User</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Complaint Type</th>
+              <th>Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let complaint of complaints; trackBy: trackByIndex">
+              <td class="timestamp-cell">
+                {{ formatTimestamp(complaint.timeStamp) }}
+              </td>
+              <td class="user-cell">
+                <button class="user-link" (click)="onUserClick(complaint.user)">
+                  {{ complaint.user.name }}
+                </button>
+              </td>
+              <td class="status-cell">
+                <select 
+                  class="status-dropdown" 
+                  [(ngModel)]="complaint.status"
+                  (change)="onStatusChange(complaint, $any($event.target).value)">
+                  <option *ngFor="let status of statusOptions" [value]="status">
+                    {{ status }}
+                  </option>
+                </select>
+              </td>
+              <td class="location-cell">
+                {{ complaint.location }}
+              </td>
+              <td class="type-cell">
+                {{ complaint.complaintType }}
+              </td>
+              <td class="comment-cell">
+                <textarea 
+                  class="comment-textarea" 
+                  [(ngModel)]="complaint.comment"
+                  (input)="onCommentChange(complaint, $any($event.target).value)"
+                  placeholder="Add a comment..."
+                  rows="2">
+                </textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Details Popup -->
+  <app-user-details-popup
+    [user]="selectedUser"
+    [isVisible]="showUserPopup"
+    (close)="onCloseUserPopup()">
+  </app-user-details-popup>
+</div>

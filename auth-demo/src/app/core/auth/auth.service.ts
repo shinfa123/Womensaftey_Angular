@@ -7,6 +7,7 @@ export class AuthService {
   private readonly tokenKey = 'auth_token';
   private readonly usernameKey = 'login_username';
   private readonly userRoleKey = 'user_role';
+  private readonly userIdKey = 'user_id';
   private readonly apiBase = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
@@ -19,9 +20,20 @@ export class AuthService {
         const token = (res && (res.token || res.jwt || res.jwtToken || res.accessToken)) as string | undefined;
         if (token) this.setToken(token);
         
+        // Store user ID if available in response
+        if (res && res.userId !== undefined && res.userId !== null) {
+          this.setUserId(res.userId);
+        } else if (res && res.id !== undefined && res.id !== null) {
+          this.setUserId(res.id);
+        } else if (res && res.user_id !== undefined && res.user_id !== null) {
+          this.setUserId(res.user_id);
+        }
+        
         // Store user role if available in response
         if (res && res.admin !== undefined && res.admin !== null) {
           this.setUserRole(Boolean(res.admin));
+        } else if (res && res.isAdmin !== undefined && res.isAdmin !== null) {
+          this.setUserRole(Boolean(res.isAdmin));
         } else {
           this.setUserRole(false);
         }
@@ -43,9 +55,21 @@ export class AuthService {
         tap((res) => {
           const token = (res && (res.token || res.jwt || res.jwtToken || res.accessToken)) as string | undefined;
           if (token) this.setToken(token);
+          
+          // Store user ID if available in response
+          if (res && res.userId !== undefined && res.userId !== null) {
+            this.setUserId(res.userId);
+          } else if (res && res.id !== undefined && res.id !== null) {
+            this.setUserId(res.id);
+          } else if (res && res.user_id !== undefined && res.user_id !== null) {
+            this.setUserId(res.user_id);
+          }
+          
           // Store user role if available in response
           if (res && res.admin !== undefined && res.admin !== null) {
             this.setUserRole(Boolean(res.admin));
+          } else if (res && res.isAdmin !== undefined && res.isAdmin !== null) {
+            this.setUserRole(Boolean(res.isAdmin));
           } else {
             this.setUserRole(false);
           }
@@ -57,6 +81,7 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.usernameKey);
     localStorage.removeItem(this.userRoleKey);
+    localStorage.removeItem(this.userIdKey);
   }
 
   isAuthenticated(): boolean {
@@ -90,6 +115,15 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.getUserRole();
+  }
+
+  setUserId(userId: number): void {
+    localStorage.setItem(this.userIdKey, userId.toString());
+  }
+
+  getUserId(): number | null {
+    const userId = localStorage.getItem(this.userIdKey);
+    return userId ? parseInt(userId, 10) : null;
   }
 }
 
