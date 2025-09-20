@@ -198,7 +198,7 @@
 }
 
 .complaints-table {
-  width: 100%;
+  width: 99%;
   border-collapse: collapse;
   font-size: 0.95rem;
 
@@ -402,7 +402,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 80px) {
   .complaints-table {
     th, td {
       padding: 0.5rem 0.75rem;
@@ -418,7 +418,7 @@
     }
 
     .comment-cell .comment-textarea {
-      min-width: 150px;
+      min-width: 130px;
       font-size: 0.8rem;
     }
   }
