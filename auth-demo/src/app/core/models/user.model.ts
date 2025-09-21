@@ -1,6 +1,6 @@
 export interface Department {
   id: number;
-  name: string;
+  departmentName: string;
 }
 
 export interface User {
@@ -9,7 +9,7 @@ export interface User {
   age: number;
   place: string;
   semester: number;
-  department: Department;
+  department: Department | null;
   batch: number;
   phoneno: string;
   email: string;

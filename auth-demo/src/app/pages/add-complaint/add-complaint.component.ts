@@ -80,8 +80,7 @@ export class AddComplaintComponent implements OnInit {
       location: this.complaint.location || '',
       complaintType: this.complaint.complaintType || '',
       comment: this.complaint.comment || '',
-      isNewlyUpdated: true,
-      newlyUpdated: true
+      isNewlyUpdatedForAdmin: true
     };
 
     // Alternative format - just send userId if backend expects it
@@ -92,11 +91,10 @@ export class AddComplaintComponent implements OnInit {
       location: this.complaint.location || '',
       complaintType: this.complaint.complaintType || '',
       comment: this.complaint.comment || '',
-      isNewlyUpdated: true,
-      newlyUpdated: true
+      isNewlyUpdatedForAdmin: true
     };
 
-    console.log('Creating new complaint with isNewlyUpdated=true:', newComplaint);
+    console.log('Creating new complaint with isNewlyUpdatedForAdmin=true:', newComplaint);
     console.log('Alternative complaint format:', alternativeComplaint);
 
     // Try the first format

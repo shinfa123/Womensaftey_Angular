@@ -52,16 +52,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let user of users" class="user-row">
-              <td>{{ user.id }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.age }}</td>
-              <td>{{ user.place }}</td>
-              <td>{{ user.semester }}</td>
-              <td>{{ user.department.name || 'N/A' }}</td>
-              <td>{{ user.batch }}</td>
-              <td>{{ user.phoneno }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.userName }}</td>
+              <td>{{ user.id || 'N/A' }}</td>
+              <td>{{ user.name || 'N/A' }}</td>
+              <td>{{ user.age || 'N/A' }}</td>
+              <td>{{ user.place || 'N/A' }}</td>
+              <td>{{ user.semester || 'N/A' }}</td>
+              <td>{{ user.department?.departmentName || 'N/A' }}</td>
+              <td>{{ user.batch || 'N/A' }}</td>
+              <td>{{ user.phoneno || 'N/A' }}</td>
+              <td>{{ user.email || 'N/A' }}</td>
+              <td>{{ user.userName || 'N/A' }}</td>
               <td>
                 <span class="status-indicator" [class.active]="user.isActive" [class.inactive]="!user.isActive">
                   <span class="tick" *ngIf="user.isActive">✓</span>

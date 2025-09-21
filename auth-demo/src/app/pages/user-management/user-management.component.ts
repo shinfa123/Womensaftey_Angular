@@ -34,6 +34,14 @@ export class UserManagementComponent implements OnInit {
     this.userManagementService.getAdminUserList().subscribe({
       next: (data) => {
         console.log('Users loaded successfully:', data);
+        // Log any users with null departments for debugging
+        data.forEach((user, index) => {
+          if (!user.department) {
+            console.log(`User at index ${index} has null department:`, user);
+          } else {
+            console.log(`User at index ${index} department:`, user.department);
+          }
+        });
         this.users = data;
         this.loading = false;
       },
