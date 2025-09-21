@@ -43,4 +43,20 @@ export class ComplaintsService {
       })
     );
   }
+
+  getNewlyEditedComplaintsList(userId: number): Observable<Complaint[]> {
+    return this.http.get<Complaint[]>(`${this.apiUrl}/getNewlyEditedComplaintsList/${userId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  updateNotifications(userId: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/updateNotifications/${userId}`, {}).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => error);
+      })
+    );
+  }
 }

@@ -22,4 +22,6 @@ export interface Complaint {
   location: string;
   complaintType: string;
   comment: string;
+  isNewlyUpdated?: boolean; // Flag to indicate if complaint was recently edited
+  newlyUpdated?: boolean; // Alternative property name for backend compatibility
 }

@@ -1,0 +1,56 @@
+<div class="notification-container">
+  <button 
+    class="notification-toggle" 
+    (click)="toggleNotifications()"
+    [class.has-notifications]="getNotificationCount() > 0">
+    🔔 Notifications
+    <span *ngIf="getNotificationCount() > 0" class="notification-badge">
+      {{ getNotificationCount() }}
+    </span>
+  </button>
+
+  <div *ngIf="showNotifications" class="notification-dropdown">
+    <div class="notification-header">
+      <h3>Newly Edited Complaints</h3>
+      <button class="refresh-btn" (click)="loadNotifications()" [disabled]="loading">
+        {{ loading ? '⏳' : '🔄' }}
+      </button>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      Loading notifications...
+    </div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!loading && !error && notifications.length === 0" class="no-notifications">
+      No new notifications
+    </div>
+
+    <div *ngIf="!loading && !error && notifications.length > 0" class="notifications-list">
+      <div *ngFor="let notification of notifications" class="notification-item">
+        <div class="notification-content">
+          <div class="notification-header-item">
+            <span class="complaint-type">{{ notification.complaintType }}</span>
+            <span class="status" [ngClass]="getStatusClass(notification.status)">
+              {{ notification.status }}
+            </span>
+          </div>
+          <div class="notification-details">
+            <p class="comment">{{ notification.comment }}</p>
+            <div class="notification-meta">
+              <span class="location">📍 {{ notification.location }}</span>
+              <span class="timestamp">🕒 {{ formatDate(notification.timeStamp) }}</span>
+            </div>
+            <div class="user-info">
+              <span class="user-name">{{ notification.user.name }}</span>
+              <span class="user-dept">{{ notification.user.department.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

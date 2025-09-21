@@ -73,9 +73,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let complaint of complaints; trackBy: trackByIndex">
+            <tr *ngFor="let complaint of complaints; trackBy: trackByIndex" 
+                [class.edited-row]="complaint.isNewlyUpdated">
               <td class="timestamp-cell">
                 {{ formatTimestamp(complaint.timeStamp) }}
+                <span *ngIf="complaint.isNewlyUpdated" class="edited-indicator" title="Recently edited">✏️</span>
               </td>
               <td class="user-cell">
                 <button class="user-link" (click)="onUserClick(complaint.user)">

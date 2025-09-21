@@ -93,6 +93,7 @@
 .welcome-section p {
   font-size: 18px;
   color: #ddd;
+  margin-bottom: 20px;
 }
 
 /* Responsive layout for small screens */
@@ -100,14 +101,21 @@
   .home-page {
     flex-direction: column;
   }
+
+  .welcome-section h1 {
+    font-size: 28px;
+  }
+
   .sidebar {
     width: 100%;
     flex-direction: row;
     overflow-x: auto;
   }
+
   .side-nav {
     flex-direction: row;
   }
+
   .side-link {
     justify-content: center;
   }
