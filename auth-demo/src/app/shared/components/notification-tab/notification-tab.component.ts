@@ -57,7 +57,7 @@ export class NotificationTabComponent implements OnInit {
       // Opening notifications - load them
       this.loadNotifications();
     } else if (wasOpen && !this.showNotifications) {
-      // Closing notifications - call update API for non-admin users
+      // Closing notifications - call update API for all users
       this.handleNotificationClose();
     }
   }
@@ -66,9 +66,9 @@ export class NotificationTabComponent implements OnInit {
     const userId = this.authService.getUserId();
     const isAdmin = this.authService.isAdmin();
     
-    // Only call API for non-admin users
-    if (!isAdmin && userId) {
-      console.log('Calling updateNotifications API for non-admin user:', userId);
+    // Call API for all users (both admin and non-admin)
+    if (userId) {
+      console.log(`Calling updateNotifications API for ${isAdmin ? 'admin' : 'non-admin'} user:`, userId);
       this.complaintsService.updateNotifications(userId).subscribe({
         next: (response) => {
           console.log('Notifications updated successfully:', response);
@@ -80,8 +80,6 @@ export class NotificationTabComponent implements OnInit {
           // Don't show error to user as this is a background operation
         }
       });
-    } else if (isAdmin) {
-      console.log('Admin user - skipping updateNotifications API call');
     } else {
       console.log('No user ID found - skipping updateNotifications API call');
     }
