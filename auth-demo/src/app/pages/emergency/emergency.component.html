@@ -1,0 +1,19 @@
+<div class="emergency-page">
+  <div class="content">
+    <div class="back-link-container">
+      <a class="back-link" routerLink="/home">← Back</a>
+    </div>
+    <h2>Emergency</h2>
+    <p>Send your current location to the safety team.</p>
+
+    <button class="emergency-btn" (click)="trigger()" [disabled]="isSending">
+      {{ isSending ? 'Sending…' : 'SEND EMERGENCY ALERT' }}
+    </button>
+
+    <div class="status" *ngIf="message">
+      <p class="message">{{ message }}</p>
+    </div>
+  </div>
+</div>
+
+

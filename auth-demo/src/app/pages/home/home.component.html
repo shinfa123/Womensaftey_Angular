@@ -9,11 +9,15 @@
       <a class="side-link" routerLink="/complaints">
         📝 <span>Complaints</span>
       </a>
-      <a class="side-link alert" href="#">
+      <a *ngIf="!isAdmin" class="side-link alert" routerLink="/emergency">
         🚨 <span>Emergency Alert</span>
       </a>
       <a *ngIf="isAdmin" class="side-link" routerLink="/user-management">
         👥 <span>User Management</span>
+      </a>
+      <a *ngIf="isAdmin" class="side-link alert" routerLink="/admin-emergency-alerts">
+        🚨 <span>Emergency Alerts</span>
+        <span class="notification-badge" *ngIf="emergencyNotificationCount > 0">{{ emergencyNotificationCount }}</span>
       </a>
       <a class="side-link" routerLink="/about">
         ℹ️ <span>About</span>

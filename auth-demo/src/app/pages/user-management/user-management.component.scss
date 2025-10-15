@@ -1,6 +1,6 @@
 .user-management-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: url('/assets/UserList.png') no-repeat center center / cover;
   display: grid;
   grid-template-rows: auto 1fr;
 }
@@ -57,7 +57,7 @@
 
 .hero h1 {
   margin: 0 0 6px;
-  font-size: 28px;
+  font-size: 45px;
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -68,10 +68,10 @@
 }
 
 .table-section {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(151, 169, 211, 0.95);
   border-radius: 14px;
   padding: 24px;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 26px rgba(141, 216, 254, 0.3);
   backdrop-filter: blur(10px);
 }
 
@@ -162,14 +162,14 @@
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: rgb(188, 208, 218);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(109, 154, 189, 0.1);
 }
 
 .user-table th {
-  background: #f8f9fa;
+  background: #aec6dd;
   padding: 12px 8px;
   text-align: left;
   font-weight: 600;

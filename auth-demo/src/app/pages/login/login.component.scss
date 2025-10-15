@@ -9,10 +9,14 @@
   place-items: center;
   padding: 24px;
 
-  /* Modern gradient with backdrop effect */
+  /* Clean image background without overlay */
   background:
-    linear-gradient(135deg, rgba(10, 14, 23, 0.85), rgba(25, 118, 210, 0.75)),
-    url('https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
+    url('/assets/Login.png') center/cover no-repeat fixed;
+  
+  /* Ensure proper image scaling */
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .auth-card {

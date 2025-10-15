@@ -1,0 +1,88 @@
+<div class="admin-emergency-page">
+  <div class="header">
+    <a class="back-link" routerLink="/home">← Back</a>
+    <h2>Emergency Alerts</h2>
+    <button class="refresh-btn" (click)="refreshAlerts()" [disabled]="loading">
+      {{ loading ? 'Refreshing...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="alerts-section">
+      <div class="section-header">
+        <h3>Emergency Alerts List</h3>
+        <div class="counts">
+          <span class="count">{{ emergencyAlerts.length }} alerts</span>
+          <span class="new-count" *ngIf="newlyUpdatedCount > 0">{{ newlyUpdatedCount }} new</span>
+        </div>
+      </div>
+
+      <div class="loading" *ngIf="loading">
+        <p>Loading emergency alerts...</p>
+      </div>
+
+      <div class="error" *ngIf="error">
+        <p>{{ error }}</p>
+        <button (click)="refreshAlerts()">Try Again</button>
+      </div>
+
+      <div class="alerts-table" *ngIf="!loading && !error">
+        <table>
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Phone No</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alert of emergencyAlerts" 
+                [class.selected]="selectedEmergency?.id === alert.id"
+                [class.newly-updated]="alert.isNewlyUpdated">
+              <td>
+                {{ alert.user.name || 'Unknown' }}
+                <span class="new-badge" *ngIf="alert.isNewlyUpdated">NEW</span>
+              </td>
+              <td>{{ alert.user.phoneno || 'N/A' }}</td>
+              <td>{{ alert.latitude }}</td>
+              <td>{{ alert.longitude }}</td>
+              <td>
+                <button class="view-btn" (click)="selectEmergency(alert)">
+                  View Location
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="no-alerts" *ngIf="emergencyAlerts.length === 0">
+          <p>No emergency alerts found.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-section" *ngIf="selectedEmergency">
+      <div class="map-header">
+        <h3>Emergency Location</h3>
+        <button class="close-btn" (click)="closeMap()">×</button>
+      </div>
+      <div class="map-container">
+        <div class="map-placeholder">
+          <p>📍 Emergency Location</p>
+          <p><strong>Student Name:</strong> {{ selectedEmergency.user.name || 'Unknown' }}</p>
+          <p><strong>Phone No:</strong> {{ selectedEmergency.user.phoneno || 'N/A' }}</p>
+          <p><strong>Coordinates:</strong> {{ selectedEmergency.latitude }}, {{ selectedEmergency.longitude }}</p>
+          <div class="map-actions">
+            <a [href]="'https://www.google.com/maps?q=' + selectedEmergency.latitude + ',' + selectedEmergency.longitude" 
+               target="_blank" 
+               class="open-maps-btn">
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,9 @@ import { UserComplaintsComponent } from './pages/user-complaints/user-complaints
 import { AddComplaintComponent } from './pages/add-complaint/add-complaint.component';
 import { ComplaintsComponent } from './pages/complaints/complaints.component';
 import { authGuard } from './core/auth/auth.guard';
+import { nonAdminGuard } from './core/auth/non-admin.guard';
+import { EmergencyComponent } from './pages/emergency/emergency.component';
+import { AdminEmergencyAlertsComponent } from './pages/admin-emergency-alerts/admin-emergency-alerts.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,6 +24,8 @@ export const routes: Routes = [
   { path: 'admin-complaints', component: AdminComplaintsComponent, canActivate: [authGuard] },
   { path: 'user-complaints', component: UserComplaintsComponent, canActivate: [authGuard] },
   { path: 'add-complaint', component: AddComplaintComponent, canActivate: [authGuard] },
+  { path: 'emergency', component: EmergencyComponent, canActivate: [authGuard, nonAdminGuard] },
+  { path: 'admin-emergency-alerts', component: AdminEmergencyAlertsComponent, canActivate: [authGuard] },
   { path: 'user-management', component: UserManagementComponent, canActivate: [authGuard] },
   { path: 'edit-user/:id', component: EditUserComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: 'login' }
